@@ -2,7 +2,7 @@ const readline = require('readline');
 
 const SHOP_NAME = "Magic MNS";
 const SORCERER_NAME = "Archibald 🧙‍♂️";
-const nbPotions = 27;
+let nbPotions = 27;
 const potionPrice = 50.50;
 const shopIsOpen = true;
 
@@ -69,4 +69,26 @@ function askQuestion() {
     );
 }
 
-askQuestion();
+// askQuestion();
+
+function BuyPotions() {
+    rl.question(
+        "Combien de potions voulez-vous acheter ? ",
+        (userChoice) => {
+            let userChoiceInt = parseInt(userChoice);
+            userChoiceInt = isNaN(userChoiceInt) ? 0 : userChoiceInt;
+
+            const format = new Intl.NumberFormat('fr-FR', {
+                style: 'currency',
+                currency: 'EUR'
+            });
+
+            const totalPrice = userChoiceInt * potionPrice;
+            console.log(`Le prix de ${userChoiceInt} potions de soins est de : ` + format.format(totalPrice) + " 🪙 mon cher Aventurier. 💸.");
+
+            rl.close(); // On ferme seulement après que l'utilisateur ait répondu
+        }
+    );
+}
+
+BuyPotions();
