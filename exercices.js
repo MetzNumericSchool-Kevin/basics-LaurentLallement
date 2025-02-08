@@ -127,4 +127,15 @@ function buyPotions() {
     );
 }
 
-buyPotions();
+// buyPotions();
+
+function potionsList() {
+    const potionsName = ["Potion 1", "Potion 2", "Potion 3"];
+    console.log(potionsName);
+    potionsName.forEach((potion, index) => {
+        console.log(`${index} : ${potion}`);
+    });
+}
+
+potionsList();
+
