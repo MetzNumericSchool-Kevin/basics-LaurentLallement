@@ -71,7 +71,7 @@ function askQuestion() {
 
 // askQuestion();
 
-function BuyPotions() {
+function totalPricePotions() {
     rl.question(
         "Combien de potions voulez-vous acheter ? ",
         (userChoice) => {
@@ -91,4 +91,40 @@ function BuyPotions() {
     );
 }
 
-BuyPotions();
+// totalPricePotions();
+
+function buyPotions() {
+    let availableMoney = 150.20;
+    rl.question(
+        "Combien de potions voulez-vous acheter ? ",
+        (userChoice) => {
+            let userChoiceInt = parseInt(userChoice);
+            userChoiceInt = isNaN(userChoiceInt) ? 0 : userChoiceInt;
+
+            const format = new Intl.NumberFormat('fr-FR', {
+                style: 'currency',
+                currency: 'EUR'
+            });
+
+            const totalPrice = userChoiceInt * potionPrice;
+
+            if (totalPrice <= availableMoney && userChoiceInt <= nbPotions) {
+                availableMoney -= totalPrice;
+                nbPotions -= userChoiceInt;
+                console.log(`Le prix de ${userChoiceInt} potions de soins est de : ` + format.format(totalPrice) + " 🪙 mon cher Aventurier. 💸.");
+                console.log("Vous disposez désormais de " + format.format(availableMoney) + " dans votre bourse cher aventurier.");
+            }
+            else if (totalPrice > availableMoney) {
+                console.log(`Le prix de ${userChoiceInt} potions de soins est de : ` + format.format(totalPrice) + " 🪙 mon cher Aventurier. 💸.");
+                console.log("Hors vous ne disposez que de " + format.format(availableMoney) + " dans votre bourse.");
+            }
+            else {
+                console.log(`Désole cher aventurier, je ne dispose en stocks que ${nbPotions} potion(s) de soins.`);
+            }
+                
+            rl.close(); // On ferme seulement après que l'utilisateur ait répondu
+        }
+    );
+}
+
+buyPotions();
