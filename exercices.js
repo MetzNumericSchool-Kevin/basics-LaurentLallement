@@ -139,7 +139,7 @@ const potion = {
 };
 
 console.log("nom : " + potion.name + ", prix : "
-        + amountFormat.format(potion.price) + ", nombre en stocks : "
+        + amountFormat.format(potion["price"]) + ", nombre en stocks : "
         + quantityFormat.format(potion.nbStock));
 
 process.exit();
