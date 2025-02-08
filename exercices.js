@@ -132,6 +132,7 @@ function buyPotions() {
 function potionsList() {
     const potionsName = ["Potion 1", "Potion 2", "Potion 3"];
     potionsName.push("Potion 4");
+    potionsName.pop();
     potionsName.forEach((potion, index) => {
         console.log(`${index} : ${potion}`);
     });
