@@ -11,6 +11,17 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
+const amountFormat = new Intl.NumberFormat('fr-FR', {
+    style: 'currency',
+    currency: 'EUR'
+});
+
+const quantityFormat = new Intl.NumberFormat('fr-FR', {
+    style: 'decimal',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+});
+
 if (shopIsOpen) {
     console.log("Bienvenue dans la boutique " + SHOP_NAME + " Aventurier ! 🎉");
 } else {
@@ -40,20 +51,11 @@ function askQuestion() {
                     console.log("Mon nom de sorcier est : " + SORCERER_NAME);
                     break;
                 case 3: {
-                    const format = new Intl.NumberFormat('fr-FR', {
-                        style: 'currency',
-                        currency: 'EUR'
-                    });
-                    console.log("Le prix d'une potion de soin est de : " + format.format(potionPrice));
+                    console.log("Le prix d'une potion de soin est de : " + amountFormat.format(potionPrice));
                 }
                     break;
                 case 4: {
-                    const format = new Intl.NumberFormat('fr-FR', {
-                        style: 'decimal',
-                        minimumFractionDigits: 0,
-                        maximumFractionDigits: 0
-                    });
-                    console.log("La quantité de potion de soin en stock : " + format.format(nbPotions));
+                    console.log("La quantité de potion de soin en stock : " + quantityFormat.format(nbPotions));
                 }
                     break;
                 case 5:
@@ -78,13 +80,8 @@ function totalPricePotions() {
             let userChoiceInt = parseInt(userChoice);
             userChoiceInt = isNaN(userChoiceInt) ? 0 : userChoiceInt;
 
-            const format = new Intl.NumberFormat('fr-FR', {
-                style: 'currency',
-                currency: 'EUR'
-            });
-
             const totalPrice = userChoiceInt * potionPrice;
-            console.log(`Le prix de ${userChoiceInt} potions de soins est de : ` + format.format(totalPrice) + " 🪙 mon cher Aventurier. 💸.");
+            console.log(`Le prix de ${userChoiceInt} potions de soins est de : ` + amountFormat.format(totalPrice) + " 🪙 mon cher Aventurier. 💸.");
 
             rl.close(); // On ferme seulement après que l'utilisateur ait répondu
         }
@@ -101,22 +98,17 @@ function buyPotions() {
             let userChoiceInt = parseInt(userChoice);
             userChoiceInt = isNaN(userChoiceInt) ? 0 : userChoiceInt;
 
-            const format = new Intl.NumberFormat('fr-FR', {
-                style: 'currency',
-                currency: 'EUR'
-            });
-
             const totalPrice = userChoiceInt * potionPrice;
 
             if (totalPrice <= availableMoney && userChoiceInt <= nbPotions) {
                 availableMoney -= totalPrice;
                 nbPotions -= userChoiceInt;
-                console.log(`Le prix de ${userChoiceInt} potions de soins est de : ` + format.format(totalPrice) + " 🪙 mon cher Aventurier. 💸.");
-                console.log("Vous disposez désormais de " + format.format(availableMoney) + " dans votre bourse cher aventurier.");
+                console.log(`Le prix de ${userChoiceInt} potions de soins est de : ` + amountFormat.format(totalPrice) + " 🪙 mon cher Aventurier. 💸.");
+                console.log("Vous disposez désormais de " + amountFormat.format(availableMoney) + " dans votre bourse cher aventurier.");
             }
             else if (totalPrice > availableMoney) {
-                console.log(`Le prix de ${userChoiceInt} potions de soins est de : ` + format.format(totalPrice) + " 🪙 mon cher Aventurier. 💸.");
-                console.log("Hors vous ne disposez que de " + format.format(availableMoney) + " dans votre bourse.");
+                console.log(`Le prix de ${userChoiceInt} potions de soins est de : ` + amountFormat.format(totalPrice) + " 🪙 mon cher Aventurier. 💸.");
+                console.log("Hors vous ne disposez que de " + amountFormat.format(availableMoney) + " dans votre bourse.");
             }
             else {
                 console.log(`Désole cher aventurier, je ne dispose en stocks que ${nbPotions} potion(s) de soins.`);
@@ -138,5 +130,16 @@ function potionsList() {
     });
 }
 
-potionsList();
+// potionsList();
 
+const potion = {
+    name: "Potion 1",
+    price: 25,
+    nbStock: 12,
+};
+
+console.log("nom : " + potion.name + ", prix : "
+        + amountFormat.format(potion.price) + ", nombre en stocks : "
+        + quantityFormat.format(potion.nbStock));
+
+process.exit();
