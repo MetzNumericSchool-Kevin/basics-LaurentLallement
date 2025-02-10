@@ -156,5 +156,20 @@ const inventaire = [
     new Potion("Potion 3", 75, 6),
 ];
 
+for (let i = 0; i < inventaire.length; i++) {
+    console.log(`Nom : ${inventaire[i].name}`);
+    console.log("Prix : " + amountFormat.format(inventaire[i].price));
+    console.log("Prix : " + quantityFormat.format(inventaire[i].nbStock));
+}
+
+for (const potion of inventaire) {
+    for (const [name, value] of Object.entries(potion)) {
+        console.log(`${name.charAt(0).toUpperCase() + name.slice(1)}: ${value}`);
+    }
+}
+
+
+
+
 
 process.exit();
