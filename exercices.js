@@ -132,6 +132,7 @@ function potionsList() {
 
 // potionsList();
 
+/*
 const potion = {
     name: "Potion 1",
     price: 25,
@@ -141,5 +142,19 @@ const potion = {
 console.log("nom : " + potion.name + ", prix : "
         + amountFormat.format(potion["price"]) + ", nombre en stocks : "
         + quantityFormat.format(potion.nbStock));
+*/
+
+function Potion(name, price, nbStock) {
+    this.name = name;
+    this.price = price;
+    this.nbStock = nbStock;
+}
+
+const inventaire = [
+    new Potion("Potion 1", 25, 12),
+    new Potion("Potion 2", 50, 47),
+    new Potion("Potion 3", 75, 6),
+];
+
 
 process.exit();
